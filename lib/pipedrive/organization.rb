@@ -8,6 +8,11 @@ module Pipedrive
     def deals
       Deal.all(get "#{resource_path}/#{id}/deals")
     end
+    
+    def merge(merge_with_id)
+      res = put "#{resource_path}/#{id}/merge", body: {id: id, merge_with_id: merge_with_id}
+      res.success?
+    end
 
     class << self
 
