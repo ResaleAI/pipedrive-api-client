@@ -17,9 +17,13 @@ module Pipedrive
       OrganizationRelationship.all(get "#{OrganizationRelationship.resource_path}?org_id=#{id}" )
     end 
     
-    def merge(merge_with_id)
-      res = put "#{resource_path}/#{id}/merge", body: {id: id, merge_with_id: merge_with_id}
-      res.success?
+    def merge_org(opts = {})
+      res = put "#{resource_path}/#{opts[:org_id]}/merge", :body => {merge_with_id: id}
+      if res.success?
+        res['data']
+      else
+        false
+      end
     end
 
     class << self
