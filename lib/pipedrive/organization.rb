@@ -13,6 +13,10 @@ module Pipedrive
       res = put "#{resource_path}/#{id}/merge", body: {id: id, merge_with_id: merge_with_id}
       res.success?
     end
+    
+    def relationships
+      OrganizationRelationship.all(get "/organizationRelationships", {org_id: id})
+    end
 
     class << self
 
